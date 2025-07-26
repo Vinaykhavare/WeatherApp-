@@ -1,0 +1,146 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #1e3c72, #2a5298); /* Sleek deep blue gradient */
+  color: white;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  width: 100%;
+}
+
+.search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.search input {
+  padding: 10px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  width: 250px;
+  font-size: 16px;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border: 2px solid #eee;
+}
+
+.search input::placeholder {
+  color: #ddd;
+}
+
+.search button {
+  padding: 10px 20px;
+  background-color: #00c6ff;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.search button:hover {
+  background-color: #00a3cc;
+}
+
+.container {
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 30px;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.top .location p {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.weather-icon {
+  width: 80px;
+  height: 80px;
+  margin: 10px 0;
+}
+
+.top .temp h1 {
+  font-size: 50px;
+}
+
+.top .description p {
+  font-size: 22px;
+  margin-top: 10px;
+  color: #e6f7ff;
+}
+
+.minmax,
+.sunrise-sunset {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #d0e6ff;
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 25px;
+  flex-wrap: wrap;
+}
+
+.bottom > div {
+  flex: 1;
+  min-width: 100px;
+  margin: 10px;
+}
+
+.bottom > div p:first-child {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.bottom > div p:last-child {
+  font-size: 14px;
+  opacity: 0.8;
+  color: #c8e7ff;
+}
+
+.error {
+  color: #ff4d4d;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.loading {
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.datetime {
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+  color: #eaf4ff;
+}
