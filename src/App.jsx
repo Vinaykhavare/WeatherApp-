@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
 import axios from 'axios';
-import { FaMapMarkerAlt } from 'react-icons/fa';
 
 function App() {
   const [data, setData] = useState({});
@@ -44,41 +43,9 @@ function App() {
     }
   };
 
-  const fetchCurrentLocation = () => {
-    if (navigator.geolocation) {
-      setLoading(true);
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-          const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
-
-          axios
-            .get(url)
-            .then((response) => {
-              setData(response.data);
-              setError('');
-            })
-            .catch(() => {
-              setError('Unable to fetch location weather.');
-              setData({});
-            })
-            .finally(() => {
-              setLoading(false);
-            });
-        },
-        () => {
-          setError('Location access denied.');
-          setLoading(false);
-        }
-      );
-    } else {
-      setError('Geolocation not supported by your browser.');
-    }
-  };
-
   return (
     <div className="app">
-      <h3>Weather App</h3>
+      <h1>Weather App</h1>
 
       <div className="main-container">
         {/* Left: Search Section */}
@@ -92,9 +59,6 @@ function App() {
               type="text"
             />
             <button onClick={handleSearchClick}>Search</button>
-            <button className="location-btn" onClick={fetchCurrentLocation}>
-              <FaMapMarkerAlt />
-            </button>
           </div>
 
           {loading && <p className="loading">Loading...</p>}

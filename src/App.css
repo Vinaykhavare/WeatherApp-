@@ -6,20 +6,29 @@
 
 body {
   font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #1e3c72, #2a5298); /* Sleek deep blue gradient */
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
   color: white;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 20px;
 }
 
 .app {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
   width: 100%;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 600px;
 }
 
 .search {
@@ -28,16 +37,18 @@ body {
   align-items: center;
   gap: 10px;
   flex-wrap: wrap;
-  margin-top: 2px;
+  margin-top: 5px;
   margin-bottom: 20px;
+  width: 100%;
 }
 
 .search input {
-  padding: 10px;
+  padding: 12px;
   border: none;
   outline: none;
   border-radius: 5px;
-  width: 250px;
+  flex: 1;
+  min-width: 220px;
   font-size: 16px;
   background: rgba(255, 255, 255, 0.15);
   color: #fff;
@@ -49,7 +60,7 @@ body {
 }
 
 .search button {
-  padding: 10px 20px;
+  padding: 12px 20px;
   background-color: #00c6ff;
   color: #ffffff;
   border: none;
@@ -66,16 +77,17 @@ body {
 .container {
   text-align: center;
   background-color: rgba(255, 255, 255, 0.1);
-  padding: 20px;
+  padding: 15px;
   border-radius: 15px;
-  width: 90%;
+  width: 100%;
   max-width: 400px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 }
 
 .top .location p {
-  font-size: 28px;
+  font-size: 24px;
   font-weight: bold;
+  word-wrap: break-word;
 }
 
 .weather-icon {
@@ -84,12 +96,12 @@ body {
   margin: 10px 0;
 }
 
-.top .temp h3 {
-  font-size: 50px;
+.temp h1 {
+  font-size: 48px;
 }
 
-.top .description p {
-  font-size: 22px;
+.description p {
+  font-size: 20px;
   margin-top: 10px;
   color: #e6f7ff;
 }
@@ -101,6 +113,8 @@ body {
   margin-top: 10px;
   font-size: 14px;
   color: #d0e6ff;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .bottom {
@@ -108,16 +122,18 @@ body {
   justify-content: space-between;
   margin-top: 25px;
   flex-wrap: wrap;
+  gap: 10px;
 }
 
 .bottom > div {
   flex: 1;
   min-width: 100px;
   margin: 10px;
+  text-align: center;
 }
 
 .bottom > div p:first-child {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: bold;
 }
 
@@ -138,26 +154,29 @@ body {
   margin-bottom: 10px;
 }
 
-.datetime {
-  margin-bottom: 20px;
-  text-align: center;
-  font-size: 18px;
-  font-weight: 500;
-  color: #eaf4ff;
+/* ✅ Media Query for small screens */
+@media (max-width: 480px) {
+  .temp h1 {
+    font-size: 38px;
+  }
+
+  .search input {
+    width: 100%;
+  }
+
+  .search button {
+    width: 100%;
+  }
+
+  .description p {
+    font-size: 18px;
+  }
+
+  .top .location p {
+    font-size: 20px;
+  }
+
+  .container {
+    padding: 12px;
+  }
 }
-
-
-
-.location-btn {
-  background: transparent;
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-  margin-left: 8px;
-  transition: transform 0.2s;
-}
-
-.location-btn:hover {
-  transform: scale(1.2);
-}
-
