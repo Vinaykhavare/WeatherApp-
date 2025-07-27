@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import axios from 'axios';
+import { FaMapMarkerAlt } from 'react-icons/fa';
 
 function App() {
   const [data, setData] = useState({});
@@ -9,10 +10,9 @@ function App() {
   const [error, setError] = useState('');
 
   const apiKey = 'e124065ec97cfcd91eb3a5ff07dcd972';
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apiKey}&units=metric`;
 
-  const searchWeather = () => {
-    if (location.trim() === '') return;
+  const searchWeather = (loc) => {
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${loc}&appid=${apiKey}&units=metric`;
 
     setLoading(true);
     setError('');
@@ -34,84 +34,142 @@ function App() {
 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
-      searchWeather();
+      searchWeather(location);
+    }
+  };
+
+  const handleSearchClick = () => {
+    if (location.trim() !== '') {
+      searchWeather(location);
+    }
+  };
+
+  const fetchCurrentLocation = () => {
+    if (navigator.geolocation) {
+      setLoading(true);
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
+
+          axios
+            .get(url)
+            .then((response) => {
+              setData(response.data);
+              setError('');
+            })
+            .catch(() => {
+              setError('Unable to fetch location weather.');
+              setData({});
+            })
+            .finally(() => {
+              setLoading(false);
+            });
+        },
+        () => {
+          setError('Location access denied.');
+          setLoading(false);
+        }
+      );
+    } else {
+      setError('Geolocation not supported by your browser.');
     }
   };
 
   return (
     <div className="app">
-      <h1>Weather App</h1>
-      <div className="search">
-        <input
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-          onKeyDown={handleKeyPress}
-          placeholder="Enter location"
-          type="text"
-        />
-        <button onClick={searchWeather}>Search</button>
-      </div>
+      <h3>Weather App</h3>
 
-      {loading && <p className="loading">Loading...</p>}
-      {error && <p className="error">{error}</p>}
-
-      {data.name && (
-        <div className="container">
-          <div className="top">
-            <div className="location">
-              <p>
-                {data.name}
-                {data.sys ? `, ${data.sys.country}` : ''}
-              </p>
-            </div>
-
-            {data.weather && (
-              <img
-                src={`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`}
-                alt="icon"
-                className="weather-icon"
-              />
-            )}
-
-            <div className="temp">
-              {data.main ? <h1>{data.main.temp.toFixed()}°C</h1> : null}
-            </div>
-
-            <div className="description">
-              {data.weather ? <p>{data.weather[0].main}</p> : null}
-            </div>
-
-            {data.main && (
-              <div className="minmax">
-                <p>Min: {data.main.temp_min.toFixed()}°C</p>
-                <p>Max: {data.main.temp_max.toFixed()}°C</p>
-              </div>
-            )}
-
-            {data.sys && (
-              <div className="sunrise-sunset">
-                <p>Sunrise: {new Date(data.sys.sunrise * 1000).toLocaleTimeString()}</p>
-                <p>Sunset: {new Date(data.sys.sunset * 1000).toLocaleTimeString()}</p>
-              </div>
-            )}
+      <div className="main-container">
+        {/* Left: Search Section */}
+        <div className="search-section">
+          <div className="search">
+            <input
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              onKeyDown={handleKeyPress}
+              placeholder="Enter location"
+              type="text"
+            />
+            <button onClick={handleSearchClick}>Search</button>
+            <button className="location-btn" onClick={fetchCurrentLocation}>
+              <FaMapMarkerAlt />
+            </button>
           </div>
 
-          <div className="bottom">
-            <div className="feels">
-              {data.main ? <p>{data.main.feels_like.toFixed()}°C</p> : null}
-              <p>Feels Like</p>
-            </div>
-            <div className="humidity">
-              {data.main ? <p>{data.main.humidity}%</p> : null}
-              <p>Humidity</p>
-            </div>
-            <div className="wind">
-              {data.wind ? <p>{data.wind.speed.toFixed()} MPH</p> : null}
-              <p>Wind Speed</p>
-            </div>
-          </div>
+          {loading && <p className="loading">Loading...</p>}
+          {error && <p className="error">{error}</p>}
         </div>
-      )}
+
+        {/* Right: Weather Display */}
+        <div className="weather-section">
+          {data.name && (
+            <div className="container">
+              <div className="top">
+                <div className="location">
+                  <p>
+                    {data.name}
+                    {data.sys ? `, ${data.sys.country}` : ''}
+                  </p>
+                </div>
+
+                {data.weather && (
+                  <img
+                    src={`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`}
+                    alt="weather-icon"
+                    className="weather-icon"
+                  />
+                )}
+
+                <div className="temp">
+                  {data.main ? <h1>{data.main.temp.toFixed()}°C</h1> : null}
+                </div>
+
+                <div className="description">
+                  {data.weather ? <p>{data.weather[0].main}</p> : null}
+                </div>
+
+                {data.main && (
+                  <div className="minmax">
+                    <p>Min: {data.main.temp_min.toFixed()}°C</p>
+                    <p>Max: {data.main.temp_max.toFixed()}°C</p>
+                  </div>
+                )}
+
+                {data.sys && (
+                  <div className="sunrise-sunset">
+                    <p>
+                      Sunrise:{' '}
+                      {new Date(data.sys.sunrise * 1000).toLocaleTimeString()}
+                    </p>
+                    <p>
+                      Sunset:{' '}
+                      {new Date(data.sys.sunset * 1000).toLocaleTimeString()}
+                    </p>
+                  </div>
+                )}
+              </div>
+
+              <div className="bottom">
+                <div className="feels">
+                  {data.main ? (
+                    <p>{data.main.feels_like.toFixed()}°C</p>
+                  ) : null}
+                  <p>Feels Like</p>
+                </div>
+                <div className="humidity">
+                  {data.main ? <p>{data.main.humidity}%</p> : null}
+                  <p>Humidity</p>
+                </div>
+                <div className="wind">
+                  {data.wind ? <p>{data.wind.speed.toFixed()} MPH</p> : null}
+                  <p>Wind Speed</p>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
