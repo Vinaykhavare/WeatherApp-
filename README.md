@@ -1,12 +1,38 @@
-# React + Vite
+# 🌦️ Weather App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern Weather Application built using **React + Vite** that allows users to search for real-time weather information for any city.
 
-Currently, two official plugins are available:
+🔗 Live Demo  
+https://weather-app-t7oh-le8y8mdhk-vinays-projects-cfccd845.vercel.app/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🚀 Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- 🌍 Search weather by city name
+- 🌡 Shows temperature in Celsius
+- 💧 Displays humidity
+- 💨 Displays wind speed
+- ☁️ Weather condition description
+- ⚡ Fast performance using Vite
+- 📱 Responsive design
+
+---
+
+## 🛠️ Technologies Used
+
+- React
+- Vite
+- JavaScript
+- CSS
+- Weather API
+- Vercel (Deployment)
+
+---
+
+## 📂 Project Setup
+
+Clone the repository
+
+```bash
+git clone https://github.com/your-username/weather-app.git
